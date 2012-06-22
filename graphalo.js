@@ -184,7 +184,7 @@ graphalo.Graph = function(graph){
 
 
 // Setup canvas, graph       
-function init(){
+ graphalo.init = function(){
 
     // Is canvas supported?
     if(!!document.createElement('canvas').getContext){
@@ -202,4 +202,4 @@ function init(){
 
 
 
-window.onload = init;
+window.onload = graphalo.init;
