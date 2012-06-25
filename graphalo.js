@@ -1,46 +1,42 @@
 
-// Graphalo
+// GRAPHALO
 // PAUL LIVINGSTONE - 2012
 
 
 
-// Setup canvas & defaults
-var graphalo = {
-    ctx: null,
-    draw: null,
-    Graph: null
-}
-// Drawing tools
+// Global namespace
+var GRAPHALO = GRAPHALO || {};
 
-graphalo.draw = {
+// Drawing tools
+GRAPHALO.draw = {
     clear: function(){
-        graphalo.ctx.clearRect(0, 0, canvas.width, canvas.height);
+        GRAPHALO.ctx.clearRect(0, 0, canvas.width, canvas.height);
     },
     rect: function(x, y, w, h, col){
-        graphalo.ctx.fillStyle = col;
-        graphalo.ctx.fillRect(x, y, w, h);
+        GRAPHALO.ctx.fillStyle = col;
+        GRAPHALO.ctx.fillRect(x, y, w, h);
     },
     circle: function(x, y, radius, col){
-        graphalo.ctx.fillStyle = col;
-        graphalo.ctx.beginPath();
-        graphalo.ctx.arc(x, y, radius, 0, Math.PI*2, true);
-        graphalo.ctx.closePath();
-        graphalo.ctx.fill();
+        GRAPHALO.ctx.fillStyle = col;
+        GRAPHALO.ctx.beginPath();
+        GRAPHALO.ctx.arc(x, y, radius, 0, Math.PI*2, true);
+        GRAPHALO.ctx.closePath();
+        GRAPHALO.ctx.fill();
     },
     text: function(str, x, y, size, col, align){
-        graphalo.ctx.font = "bold " + size + "px Arial";
-        graphalo.ctx.fillStyle = col;
-        graphalo.ctx.textAlign = align;
-        graphalo.ctx.fillText(str, x, y);
+        GRAPHALO.ctx.font = "bold " + size + "px Arial";
+        GRAPHALO.ctx.fillStyle = col;
+        GRAPHALO.ctx.textAlign = align;
+        GRAPHALO.ctx.fillText(str, x, y);
     },
     sparkline: function(gr_data){
         var graph_data = gr_data;
         var graph_data_max = Math.max.apply(Math, graph_data);
         var graph_data_length = gr_data.length - 1;
 
-        graphalo.ctx.lineWidth = 1;
-        graphalo.ctx.strokeStyle = "#333333"
-        graphalo.ctx.beginPath();
+        GRAPHALO.ctx.lineWidth = 1;
+        GRAPHALO.ctx.strokeStyle = "#333333"
+        GRAPHALO.ctx.beginPath();
         
         for(var i = 0; i < graph_data.length; i += 1){
             var perc_of_max = 0;
@@ -50,14 +46,14 @@ graphalo.draw = {
             value_of_height = perc_of_max / 100 * 20;
 
             if(i === 0){
-                graphalo.ctx.moveTo(0, 20 - Math.round(value_of_height));
+                GRAPHALO.ctx.moveTo(0, 20 - Math.round(value_of_height));
             }
             else{
-               graphalo.ctx.lineTo(i * 2, 20 - Math.round(value_of_height)); 
+               GRAPHALO.ctx.lineTo(i * 2, 20 - Math.round(value_of_height)); 
             }            
         } 
-        graphalo.ctx.lineJoin = "miter";
-        graphalo.ctx.stroke();
+        GRAPHALO.ctx.lineJoin = "miter";
+        GRAPHALO.ctx.stroke();
     },
     percpie: function(gr_data, col, size, label){
 
@@ -77,63 +73,28 @@ graphalo.draw = {
 
         
 
-        graphalo.ctx.beginPath();
-        graphalo.ctx.lineWidth = line_thickness;
-        graphalo.ctx.strokeStyle = stroke_colour;
-        graphalo.ctx.globalAlpha = 0.2;
-        graphalo.ctx.arc(x, y, radius, start_angle, 6.4 + start_angle, false);
-        graphalo.ctx.stroke();
+        GRAPHALO.ctx.beginPath();
+        GRAPHALO.ctx.lineWidth = line_thickness;
+        GRAPHALO.ctx.strokeStyle = stroke_colour;
+        GRAPHALO.ctx.globalAlpha = 0.2;
+        GRAPHALO.ctx.arc(x, y, radius, start_angle, 6.4 + start_angle, false);
+        GRAPHALO.ctx.stroke();
 
-        graphalo.ctx.beginPath();
-        graphalo.ctx.lineWidth = line_thickness;
-        graphalo.ctx.strokeStyle = stroke_colour;
-        graphalo.ctx.globalAlpha = 1;
-        graphalo.ctx.arc(x, y, radius, start_angle, radians + start_angle, false);
-        graphalo.ctx.stroke();
+        GRAPHALO.ctx.beginPath();
+        GRAPHALO.ctx.lineWidth = line_thickness;
+        GRAPHALO.ctx.strokeStyle = stroke_colour;
+        GRAPHALO.ctx.globalAlpha = 1;
+        GRAPHALO.ctx.arc(x, y, radius, start_angle, radians + start_angle, false);
+        GRAPHALO.ctx.stroke();
 
-        graphalo.draw.text(perc_of_pie * 100 + "%", x, y + Math.round(value_text_size * 0.4), value_text_size, stroke_colour, "center");
-        //draw.text(graph_label, x, y + value_text_size, value_text_size / 2, stroke_colour, "center");
-    },
-    pie: function(gr_data, col, size, label){
-
-        var graph_size = size;
-        var perc_of_pie = gr_data / 100;
-        var degrees = perc_of_pie * 360;
-        var radians = degrees * (Math.PI / 180);
-        var line_thickness = Math.round(graph_size * 0.1);
-        var x = graph_size / 2;
-        var y = graph_size / 2;
-        var stroke_colour = col;
-        var value_text_size = Math.round(graph_size * 0.25) ;
-
-        var radius = x - line_thickness;
-        var start_angle = 1.5 * Math.PI;
-        var graph_label = label;
-
-        
-
-        graphalo.ctx.beginPath();
-        graphalo.ctx.lineWidth = line_thickness;
-        graphalo.ctx.strokeStyle = stroke_colour;
-        graphalo.ctx.globalAlpha = 0.2;
-        graphalo.ctx.arc(x, y, radius, start_angle, 6.4 + start_angle, false);
-        graphalo.ctx.stroke();
-
-        graphalo.ctx.beginPath();
-        graphalo.ctx.lineWidth = line_thickness;
-        graphalo.ctx.strokeStyle = stroke_colour;
-        graphalo.ctx.globalAlpha = 1;
-        graphalo.ctx.arc(x, y, radius, start_angle, radians + start_angle, false);
-        graphalo.ctx.stroke();
-
-        graphalo.draw.text(perc_of_pie * 100 + "%", x, y + Math.round(value_text_size * 0.4), value_text_size, stroke_colour, "center");
+        GRAPHALO.draw.text(perc_of_pie * 100 + "%", x, y + Math.round(value_text_size * 0.4), value_text_size, stroke_colour, "center");
         //draw.text(graph_label, x, y + value_text_size, value_text_size / 2, stroke_colour, "center");
     }
 };
 
  
 // Graph Class
-graphalo.Graph = function(graph){
+GRAPHALO.Graph = function(graph){
 
     this.init = function(){
         this.graph_data = graph.getAttribute("data-graph-values").split(",");
@@ -158,23 +119,22 @@ graphalo.Graph = function(graph){
                 break;
         }
 
-        graphalo.ctx = this.canvas.getContext("2d")
+        GRAPHALO.ctx = this.canvas.getContext("2d")
         this.draw();
     }
+
+    
 
     this.draw = function(){
         switch(this.graph_type){
             case "sparkline":
-                graphalo.draw.sparkline(this.graph_data);
+                GRAPHALO.draw.sparkline(this.graph_data);
                 break;
             case "percpie":
-                graphalo.draw.percpie(this.graph_data, this.graph_col, this.graph_size, this.graph_label);
-                break;
-            case "pie":
-                graphalo.draw.pie(this.graph_data, this.graph_col, this.graph_size, this.graph_label);
+                GRAPHALO.draw.percpie(this.graph_data, this.graph_col, this.graph_size, this.graph_label);
                 break;
             default:
-                graphalo.draw.sparkline(this.graph_data);
+                GRAPHALO.draw.sparkline(this.graph_data);
                 break;
         }
         
@@ -184,7 +144,7 @@ graphalo.Graph = function(graph){
 
 
 // Setup canvas, graph       
- graphalo.init = function(){
+ GRAPHALO.init = function(){
 
     // Is canvas supported?
     if(!!document.createElement('canvas').getContext){
@@ -192,9 +152,9 @@ graphalo.Graph = function(graph){
         // Get all the graphme elements
         graphs = document.getElementsByClassName("graphme");
 
-        // Instantiate a graph object for each graphme element
+        // Create a Graph object for each graphme element
         for(var i = 0; i < graphs.length; i += 1){
-            setgraph = new graphalo.Graph(graphs[i]);
+            setgraph = new GRAPHALO.Graph(graphs[i]);
             setgraph.init();
         }
     } 
@@ -202,4 +162,4 @@ graphalo.Graph = function(graph){
 
 
 
-window.onload = graphalo.init;
+window.onload = GRAPHALO.init;
