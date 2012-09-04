@@ -24,10 +24,12 @@ GRAPHALO.draw = {
         GRAPHALO.ctx.fill();
     },
     text: function(str, x, y, size, col, align){
-        GRAPHALO.ctx.font = "bold " + size + "px Arial";
-        GRAPHALO.ctx.fillStyle = col;
+        GRAPHALO.ctx.font = "bold " + size + "px sans-serif";
+        GRAPHALO.ctx.fillStyle = "#333";
         GRAPHALO.ctx.textAlign = align;
+
         GRAPHALO.ctx.fillText(str, x, y);
+
     },
     sparkline: function(gr_data){
         var graph_data = gr_data;
@@ -71,10 +73,8 @@ GRAPHALO.draw = {
         var start_angle = 1.5 * Math.PI;
         var graph_label = label;
 
-        
-
         GRAPHALO.ctx.beginPath();
-        GRAPHALO.ctx.lineWidth = line_thickness;
+        GRAPHALO.ctx.lineWidth = line_thickness + Math.round(line_thickness / 2);
         GRAPHALO.ctx.strokeStyle = stroke_colour;
         GRAPHALO.ctx.globalAlpha = 0.2;
         GRAPHALO.ctx.arc(x, y, radius, start_angle, 6.4 + start_angle, false);
