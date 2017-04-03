@@ -24,27 +24,11 @@ GRAPHALO.draw = {
         GRAPHALO.ctx.fill();
     },
     text: function(str, x, y, size, col, align){
-<<<<<<< HEAD
-        GRAPHALO.ctx.font = "bold " + size + "px sans-serif";
-        GRAPHALO.ctx.fillStyle = "#333";
-=======
-<<<<<<< HEAD
-        GRAPHALO.ctx.font = "bold " + size + "px Arial";
-        GRAPHALO.ctx.fillStyle = col;
->>>>>>> line tweaks
-        GRAPHALO.ctx.textAlign = align;
+         GRAPHALO.ctx.font = "bold " + size + "px Arial";
+         GRAPHALO.ctx.fillStyle = col;
+         GRAPHALO.ctx.textAlign = align;
+         GRAPHALO.ctx.fillText(str, x, y);
 
-        GRAPHALO.ctx.fillText(str, x, y);
-<<<<<<< HEAD
-
-=======
-=======
-        ctx.font = "bold " + size + "px helvetica";
-        ctx.fillStyle = col;
-        ctx.textAlign = align;
-        ctx.fillText(str, x, y);
->>>>>>> line tweaks
->>>>>>> line tweaks
     },
     sparkline: function(gr_data){
         var graph_data = gr_data;
@@ -63,28 +47,18 @@ GRAPHALO.draw = {
             value_of_height = perc_of_max / 100 * 20;
 
             if(i === 0){
-<<<<<<< HEAD
-                GRAPHALO.ctx.moveTo(0, 20 - Math.round(value_of_height));
+                 GRAPHALO.ctx.moveTo(0, 20 - Math.round(value_of_height));
             }
             else{
-               GRAPHALO.ctx.lineTo(i * 2, 20 - Math.round(value_of_height)); 
-            }            
-        } 
-        GRAPHALO.ctx.lineJoin = "miter";
-        GRAPHALO.ctx.stroke();
-=======
-                ctx.moveTo(0, 20 - Math.round(value_of_height));
-            }
-            else{
-               ctx.lineTo(i * 4, 20 - Math.round(value_of_height)); 
+                GRAPHALO.ctx.lineTo(i * 4, 20 - Math.round(value_of_height)); 
             }
 
            
             
         }
-        ctx.lineJoin = "miter";
-        ctx.stroke();
->>>>>>> line tweaks
+         GRAPHALO.ctx.lineJoin = "miter";
+         GRAPHALO.ctx.stroke();
+
     },
     percpie: function(gr_data, col, size, label){
 
@@ -139,11 +113,9 @@ GRAPHALO.Graph = function(graph){
 
         switch(this.graph_type){
             case "sparkline":
-<<<<<<< HEAD
-                this.canvas.width = this.graph_data.length * 2;
-=======
+
                 this.canvas.width = this.graph_data.length * 4;
->>>>>>> line tweaks
+
                 this.canvas.height = 20;
                 break;
             default:
